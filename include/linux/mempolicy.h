@@ -42,6 +42,8 @@ struct mm_struct;
  * to the new storage.  The reference count of the new object is initialized
  * to 1, representing the caller of mpol_dup().
  */
+
+
 struct mempolicy {
 	atomic_t refcnt;
 	unsigned short mode; 	/* See MPOL_* above */
@@ -55,6 +57,9 @@ struct mempolicy {
 		nodemask_t cpuset_mems_allowed;	/* relative to these nodes */
 		nodemask_t user_nodemask;	/* nodemask passed by user */
 	} w;
+	bool weighted_interleave;
+	short mem_weights[8];
+	short mem_current[8];
 };
 
 /*
